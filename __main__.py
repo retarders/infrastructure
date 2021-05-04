@@ -67,7 +67,8 @@ craft_secgroup = openstack.compute.SecGroup(
 craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.2xlarge',
-        image_name='Debian-10.5'
+        image_name='Debian-10.5',
+        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)]
 )
 
 pulumi.export('craft_ip', craft.access_ip_v4)
