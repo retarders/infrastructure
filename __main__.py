@@ -11,6 +11,10 @@ internal = openstack.networking.Subnet(
         network_id=network.id
 )
 
+# create data volume
+# this volume contains stuff like maps, maven cache and plugins but ironically, not database data
+data = openstack.blockstorage.Volume('data', description='maps, plugins and stuff', size=50)
+
 # create database secgroup
 database_secgroup = openstack.compute.SecGroup(
         'database',
@@ -68,7 +72,8 @@ craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.large',
         image_name='Debian-10.5',
-        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)]
+        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
+        block_devices=[openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id)]
 )
 
 pulumi.export('craft_ip', craft.access_ip_v4)
