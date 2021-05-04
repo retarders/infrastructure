@@ -66,7 +66,7 @@ craft_secgroup = openstack.compute.SecGroup(
 # this instance hosts game servers
 craft = openstack.compute.Instance(
         'craft',
-        flavor_name='cc1.2xlarge',
+        flavor_name='cc1.large',
         image_name='Debian-10.5',
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)]
 )
