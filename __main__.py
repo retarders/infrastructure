@@ -86,7 +86,7 @@ craft = openstack.compute.Instance(
         image_name='Debian-10.5',
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         block_devices=[
-            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0),
+            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0, uuid=openstack.images.get_image(name='Debian-10.5').id),
             openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id, destination_type='volume')
         ],
         admin_pass=gen_password()
