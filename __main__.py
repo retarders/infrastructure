@@ -50,7 +50,7 @@ database = openstack.compute.Instance(
         'database',
         flavor_name='cc1.xsmall',
         image_name='Debian-10.5',
-        networks=[openstack.compute.InstanceNetworkArgs(name='internal')]
+        networks=[openstack.compute.InstanceNetworkArgs(port=database_port.id)]
 )
 
 pulumi.export('database_ip', database.access_ip_v4)
