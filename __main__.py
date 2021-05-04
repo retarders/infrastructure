@@ -13,7 +13,7 @@ internal = openstack.networking.Subnet(
 
 # create database secgroup
 database_secgroup = openstack.compute.SecGroup(
-        'database_secgroup',
+        'database',
         description='database secgroup',
         rules=[
 
@@ -48,7 +48,7 @@ pulumi.export('database_ip', database.access_ip_v4)
 
 # create craft secgroup
 craft_secgroup = openstack.compute.SecGroup(
-        'craft_secgroup',
+        'craft',
         description='craft secgroup',
         rules=[
 
