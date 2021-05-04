@@ -1,6 +1,5 @@
 import pulumi
 import pulumi_openstack as openstack
-from pulumi_openstack.compute.instance import InstanceArgs
 
 # create internal network and subnet
 network = openstack.networking.Network('retarders', admin_state_up=True)
