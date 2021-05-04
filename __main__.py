@@ -3,6 +3,8 @@ import pulumi_openstack as openstack
 import random
 import string
 
+IMAGE = 'Debian-10.5'
+
 def gen_password():
     """
     generates a 12 letter password using a very weird character set
@@ -52,7 +54,7 @@ database_secgroup = openstack.compute.SecGroup(
 database = openstack.compute.Instance(
         'database',
         flavor_name='cc1.xsmall',
-        image_name='Debian-10.5',
+        image_name=IMAGE,
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         admin_pass=gen_password()
 )
@@ -83,10 +85,10 @@ craft_secgroup = openstack.compute.SecGroup(
 craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.large',
-        image_name='Debian-10.5',
+        image_name=IMAGE,
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         block_devices=[
-            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0, uuid=openstack.images.get_image(name='Debian-10.5').id),
+            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0, uuid=openstack.images.get_image(name=IMAGE).id),
             openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id, destination_type='volume')
         ],
         admin_pass=gen_password()
