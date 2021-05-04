@@ -1,0 +1,4 @@
+name: infrastructure
+runtime:
+  name: python
+description: pulumi sucks
