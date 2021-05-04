@@ -35,15 +35,6 @@ database_secgroup = openstack.compute.SecGroup(
 
 ])
 
-# create port
-database_port = openstack.networking.Port(
-        'database',
-        admin_state_up=True,
-        fixed_ips=[openstack.networking.PortFixedIpArgs(ip_address='192.168.199.11', subnet_id=internal.id)],
-        network_id=internal.id,
-        security_group_ids=[database_secgroup.id]
-)
-
 # create a database instance
 # this instance hosts PostgreSQL and Redis
 database = openstack.compute.Instance(
