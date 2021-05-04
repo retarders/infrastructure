@@ -45,3 +45,29 @@ database = openstack.compute.Instance(
 )
 
 pulumi.export('database_ip', database.access_ip_v4)
+
+# create craft secgroup
+craft_secgroup = openstack.compute.SecGroup(
+        'craft_secgroup',
+        description='craft secgroup',
+        rules=[
+
+            # allow tcp traffic on port 25565 (minecraft) from external network (load balancer) (hardcoded)
+            openstack.compute.SecGroupRuleArgs(
+                cidr='195.114.30.0/24',
+                from_port=25565,
+                to_port=25565,
+                ip_protocol='tcp'
+            )
+
+])
+
+# create a craft instance
+# this instance hosts game servers
+craft = openstack.compute.Instance(
+        'craft',
+        flavor_name='cc1.2xlarge',
+        image_name='Debian-10.5'
+)
+
+pulumi.export('craft_ip', craft.access_ip_v4)
