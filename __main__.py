@@ -1,5 +1,13 @@
 import pulumi
 import pulumi_openstack as openstack
+import random
+import string
+
+def gen_password():
+    """
+    generates a 12 letter password using a very weird character set
+    """
+    return ''.join([random.choice(string.digits * 3 + string.punctuation) for _ in range(12)])
 
 # create internal network and subnet
 network = openstack.networking.Network('retarders', admin_state_up=True)
@@ -45,10 +53,14 @@ database = openstack.compute.Instance(
         'database',
         flavor_name='cc1.xsmall',
         image_name='Debian-10.5',
-        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)]
+        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
+        admin_pass=gen_password()
 )
 
 pulumi.export('database_ip', database.access_ip_v4)
+
+# not sure if this is secure
+pulumi.export('database_password', database.admin_pass)
 
 # create craft secgroup
 craft_secgroup = openstack.compute.SecGroup(
@@ -73,7 +85,11 @@ craft = openstack.compute.Instance(
         flavor_name='cc1.large',
         image_name='Debian-10.5',
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
-        block_devices=[openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id)]
+        block_devices=[openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id)],
+        admin_pass=gen_password()
 )
 
 pulumi.export('craft_ip', craft.access_ip_v4)
+
+# not sure if this is secure
+pulumi.export('craft_password', craft.admin_pass)
