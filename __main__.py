@@ -4,12 +4,6 @@ import pulumi_openstack as openstack
 IMAGE = 'Debian-10.5'
 MY_KEY = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDSzsSGRaP8OuHnqr7o8hviYYls4ieHQqzLn+TfezyRfTyapuD3QDZqCk4dhFjNrhpB+1pSlBZUWZqa439lNYCBp/6qSZ1Gy9/H/5Nrjeho9PYR0+/lWK4FTw1FqEPkWKX2XqR64OV60vMFe/Lav0n2ZK1dxx1Cu34lEg4BvV9bylAAhdk0pF69Tl+iSdkgHw92VQKdDvPw0Ch04Qr77KDemVG5ILiI4rgQSrQRVMdT550x9ajgnAO+meXYBHSPL2KUedaiReixPObzdOg6uvgMKY+qTCLerSAb+2ZgiMJVPunr6U9A+QfNPDv3mxgnatpDKCm2fpzvssT1ip56pFEVlqNc6cDl03hB7UlR/ZeMgj3V5b3fZwMnHZBIJTCahefIl13C9E19sJ+d450ItIqBbXk1wxtm7X0sosLgnGMvENM8thZYVqBb0DrgZrgoL8bvQ7WkAOgW7X6tQBkIAjPpkWS5GJvQOD/APrtqztC8TO83ynwUISJTyIWFOuUoUs='
 
-internal = openstack.networking.Subnet(
-        'internal',
-        cidr='192.168.199.0/24',
-        ip_version=4,
-)
-
 # create data volume
 # this volume contains stuff like maps, maven cache and plugins but ironically, not database data
 data = openstack.blockstorage.Volume('data', description='maps, plugins and stuff', size=50)
@@ -31,7 +25,6 @@ craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.large',
         image_name=IMAGE,
-        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         block_devices=[
 
             # boot image
