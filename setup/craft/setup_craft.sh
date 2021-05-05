@@ -2,7 +2,6 @@
 # This script sets up debian boxes with le craft
 # Note: must be ran as a regular user
 
-
 install_docker() {
     # install dependencies
     sudo apt install apt-transport-https ca-certificates lsb-release -y
@@ -19,24 +18,38 @@ install_docker() {
     sudo apt install docker-ce docker-ce-cli docker-compose containerd.io -y
 }
 
-build_dockerizedcraft() {
-    git clone https://github.com/DockerizedCraft/Core DockerizedCraft
-    cd DockerizedCraft
+install_java() {
+    wget https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10_openj9-0.26.0/OpenJDK8U-jdk_x64_linux_openj9_8u292b10_openj9-0.26.0.tar.gz
+    tar xf OpenJDK*.tar.gz
+    echo "export PATH=$(pwd)/jdk8u292-b10/bin:\$PATH" >> ~/.bashrc
+    . ~/.bashrc
 
-    sudo apt install openjdk-8-jdk maven
-    sudo maven package
+    sudo apt install maven -y
 }
 
-# mount data volume to /mnt/data
-sudo mkdir -p /mnt/data
-sudo mount /dev/vdb /mnt/data
+build_dockerizedcraft() {
+    cd /mnt/data
+    export MAVEN_OPTS='-Dmaven.repo.local=/mnt/data/.m2'
+
+    sudo git clone https://github.com/DockerizedCraft/Core DockerizedCraft
+    cd DockerizedCraft
+
+    sudo maven package
+    sudo mv target/DockerizedCraft*.jar ../plugins/DockerizedCraft.jar
+}
 
 # install some basic dependencies
 sudo apt update -y
 sudo apt install git curl wget gnupg -y
 
-# install docker
+# mount data volume to /mnt/data
+sudo mkdir -p /mnt/data
+sudo mount /dev/vdb1 /mnt/data
+sudo mkdir -p /mnt/data/plugins
+
+# install docker and java
 install_docker
+install_java
 
 # build dockerizedcraft
 build_dockerizedcraft
