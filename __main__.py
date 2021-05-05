@@ -1,89 +1,32 @@
 import pulumi
 import pulumi_openstack as openstack
-import random
-import string
 
 IMAGE = 'Debian-10.5'
-
-def gen_password():
-    """
-    generates a 12 letter password using a very weird character set
-    """
-    return ''.join([random.choice(string.digits * 3 + string.punctuation) for _ in range(12)])
-
-# create internal network and subnet
-network = openstack.networking.Network('retarders', admin_state_up=True)
+MY_KEY = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDSzsSGRaP8OuHnqr7o8hviYYls4ieHQqzLn+TfezyRfTyapuD3QDZqCk4dhFjNrhpB+1pSlBZUWZqa439lNYCBp/6qSZ1Gy9/H/5Nrjeho9PYR0+/lWK4FTw1FqEPkWKX2XqR64OV60vMFe/Lav0n2ZK1dxx1Cu34lEg4BvV9bylAAhdk0pF69Tl+iSdkgHw92VQKdDvPw0Ch04Qr77KDemVG5ILiI4rgQSrQRVMdT550x9ajgnAO+meXYBHSPL2KUedaiReixPObzdOg6uvgMKY+qTCLerSAb+2ZgiMJVPunr6U9A+QfNPDv3mxgnatpDKCm2fpzvssT1ip56pFEVlqNc6cDl03hB7UlR/ZeMgj3V5b3fZwMnHZBIJTCahefIl13C9E19sJ+d450ItIqBbXk1wxtm7X0sosLgnGMvENM8thZYVqBb0DrgZrgoL8bvQ7WkAOgW7X6tQBkIAjPpkWS5GJvQOD/APrtqztC8TO83ynwUISJTyIWFOuUoUs='
 
 internal = openstack.networking.Subnet(
         'internal',
         cidr='192.168.199.0/24',
         ip_version=4,
-        network_id=network.id
 )
 
 # create data volume
 # this volume contains stuff like maps, maven cache and plugins but ironically, not database data
 data = openstack.blockstorage.Volume('data', description='maps, plugins and stuff', size=50)
 
-# create database secgroup
-database_secgroup = openstack.compute.SecGroup(
-        'database',
-        description='database secgroup',
-        rules=[
-
-            # allow tcp traffic on port 5432 (postgresql) from internal network
-            openstack.compute.SecGroupRuleArgs(
-                cidr=internal.cidr,
-                from_port=5432,
-                to_port=5432,
-                ip_protocol='tcp'
-            ),
-
-            # allow tcp traffic on port 6379 (redis) from internal network
-            openstack.compute.SecGroupRuleArgs(
-                cidr=internal.cidr,
-                from_port=6379,
-                to_port=6379,
-                ip_protocol='tcp'
-            )
-
-])
-
 # create a database instance
 # this instance hosts PostgreSQL and Redis
-db_password = gen_password()
 database = openstack.compute.Instance(
         'database',
         flavor_name='cc1.xsmall',
         image_name=IMAGE,
-        networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
-        admin_pass=db_password
+        key_pair=MY_KEY
 )
 
 pulumi.export('database_ip', database.access_ip_v4)
 
-# not sure if this is secure
-pulumi.export('database_password', db_password)
-
-# create craft secgroup
-craft_secgroup = openstack.compute.SecGroup(
-        'craft',
-        description='craft secgroup',
-        rules=[
-
-            # allow tcp traffic on port 25565 (minecraft) from external network (load balancer) (hardcoded)
-            openstack.compute.SecGroupRuleArgs(
-                cidr='195.114.30.0/24',
-                from_port=25565,
-                to_port=25565,
-                ip_protocol='tcp'
-            )
-
-])
-
 # create a craft instance
 # this instance hosts game servers
-craft_password = gen_password()
 craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.large',
@@ -110,10 +53,8 @@ craft = openstack.compute.Instance(
             )
 
         ],
-        admin_pass=craft_password
+
+        key_pair=MY_KEY
 )
 
 pulumi.export('craft_ip', craft.access_ip_v4)
-
-# not sure if this is secure
-pulumi.export('craft_password', craft_password)
