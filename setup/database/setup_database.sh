@@ -1,30 +1,25 @@
 #!/bin/sh
 # This script bootstraps the database box, it's designed for Debian
-# NOTE: It should be ran as root
 
 install_docker() {
     # install dependencies
-    apt install apt-transport-https ca-certificates lsb-release -y
+    sudo apt install apt-transport-https ca-certificates lsb-release -y
 
     # add pgp key
-    curl https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    curl https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
     # add docker repo
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
-        >> /etc/apt/sources.list.d/docker.list
+        | sudo tee /etc/apt/sources.list.d/docker.list
 
     # refresh repos and install docker engine
-    apt update -y
-    apt install docker-ce docker-ce-cli containerd.io -y
-
-    # add debian user (assuming this is the used non-root user) to docker
-    # group so the docker command can be ran rootlessly
-    usermod -aG docker debian
+    sudo apt update -y
+    sudo apt install docker-ce docker-ce-cli containerd.io -y
 }
 
 # install some basic dependencies
-apt update -y
-apt install curl wget gnupg -y
+sudo apt update -y
+sudo apt install curl wget gnupg -y
 
 # install docker
 install_docker
@@ -54,4 +49,4 @@ services:
 EOF
 
 # up
-docker-compose up 
+sudo docker-compose -f ./docker-compose.yml up 
