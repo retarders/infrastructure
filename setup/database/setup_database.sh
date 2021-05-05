@@ -14,7 +14,7 @@ install_docker() {
 
     # refresh repos and install docker engine
     sudo apt update -y
-    sudo apt install docker-ce docker-ce-cli containerd.io -y
+    sudo apt install docker-ce docker-ce-cli docker-compose containerd.io -y
 }
 
 # install some basic dependencies
