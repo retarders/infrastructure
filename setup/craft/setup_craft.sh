@@ -34,7 +34,7 @@ build_dockerizedcraft() {
     sudo git clone https://github.com/DockerizedCraft/Core DockerizedCraft
     cd DockerizedCraft
 
-    sudo maven package
+    sudo mvn package
     sudo mv target/DockerizedCraft*.jar ../plugins/DockerizedCraft.jar
 }
 
