@@ -21,6 +21,7 @@ install_docker() {
 install_java() {
     wget https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10_openj9-0.26.0/OpenJDK8U-jdk_x64_linux_openj9_8u292b10_openj9-0.26.0.tar.gz
     tar xf OpenJDK*.tar.gz
+    rm OpenJDK*.tar.gz
     echo "export PATH=$(pwd)/jdk8u292-b10/bin:\$PATH" >> ~/.bashrc
     . ~/.bashrc
 
