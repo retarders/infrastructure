@@ -88,8 +88,25 @@ craft = openstack.compute.Instance(
         image_name=IMAGE,
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         block_devices=[
-            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0, uuid=openstack.images.get_image(name=IMAGE).id),
-            openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id, destination_type='volume')
+
+            # boot image
+            openstack.compute.InstanceBlockDeviceArgs(
+                uuid=openstack.images.get_image(name=IMAGE).id,
+                source_type='image',
+                destination_type='local',
+                boot_index=0,
+                delete_on_termination=True
+            ),
+
+            # data
+            openstack.compute.InstanceBlockDeviceArgs(
+                uuid=data.id, 
+                source_type='volume',
+                destination_type='volume',
+                boot_index=1,
+                delete_on_termination=True
+            )
+
         ],
         admin_pass=gen_password()
 )
