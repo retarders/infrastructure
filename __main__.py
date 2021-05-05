@@ -51,18 +51,19 @@ database_secgroup = openstack.compute.SecGroup(
 
 # create a database instance
 # this instance hosts PostgreSQL and Redis
+db_password = gen_password()
 database = openstack.compute.Instance(
         'database',
         flavor_name='cc1.xsmall',
         image_name=IMAGE,
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
-        admin_pass=gen_password()
+        admin_pass=db_password
 )
 
 pulumi.export('database_ip', database.access_ip_v4)
 
 # not sure if this is secure
-pulumi.export('database_password', database.admin_pass)
+pulumi.export('database_password', db_password)
 
 # create craft secgroup
 craft_secgroup = openstack.compute.SecGroup(
@@ -82,19 +83,37 @@ craft_secgroup = openstack.compute.SecGroup(
 
 # create a craft instance
 # this instance hosts game servers
+craft_password = gen_password()
 craft = openstack.compute.Instance(
         'craft',
         flavor_name='cc1.large',
         image_name=IMAGE,
         networks=[openstack.compute.InstanceNetworkArgs(name=network.name)],
         block_devices=[
-            openstack.compute.InstanceBlockDeviceArgs(source_type='image', destination_type='local', boot_index=0, uuid=openstack.images.get_image(name=IMAGE).id),
-            openstack.compute.InstanceBlockDeviceArgs(source_type='volume', uuid=data.id, destination_type='volume')
+
+            # boot image
+            openstack.compute.InstanceBlockDeviceArgs(
+                uuid=openstack.images.get_image(name=IMAGE).id,
+                source_type='image',
+                destination_type='local',
+                boot_index=0,
+                delete_on_termination=True
+            ),
+
+            # data
+            openstack.compute.InstanceBlockDeviceArgs(
+                uuid=data.id, 
+                source_type='volume',
+                destination_type='volume',
+                boot_index=1,
+                delete_on_termination=True
+            )
+
         ],
-        admin_pass=gen_password()
+        admin_pass=craft_password
 )
 
 pulumi.export('craft_ip', craft.access_ip_v4)
 
 # not sure if this is secure
-pulumi.export('craft_password', craft.admin_pass)
+pulumi.export('craft_password', craft_password)
