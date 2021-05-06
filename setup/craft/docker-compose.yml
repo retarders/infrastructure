@@ -8,7 +8,7 @@ services:
             - 25565:25577
         volumes:
             - /mnt/data/plugins/DockerizedCraft.jar:/server/plugins/DockerizedCraft.jar
-            - ~/infrastructure/setup/craft/configs/DockerizedCraft/:/server/plugins/DockerizedCraft/
+            - ~/infrastructure/setup/craft/configs/DockerizedCraft:/server/plugins/DockerizedCraft
             - //var/run/docker.sock:/var/run/docker.sock
         networks:
             - local
