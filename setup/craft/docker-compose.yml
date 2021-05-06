@@ -8,6 +8,7 @@ services:
             - 25565:25577
         volumes:
             - /mnt/data/plugins/DockerizedCraft.jar:/server/plugins/DockerizedCraft.jar
+            - $HOME/infrastructure/setup/craft/configs/DockerizedCraft/connection-balancer.yml:/server/plugins/DockerizedCraft/connection-balancer.yml
             - //var/run/docker.sock:/var/run/docker.sock
         networks:
             - local
