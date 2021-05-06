@@ -28,6 +28,8 @@ services:
             - SERVER_CATEGORY=lobby
         networks:
             - local
+        volumes:
+            - /mnt/data/maps/lobby:/server/world
 
 networks:
     local:
