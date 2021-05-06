@@ -35,7 +35,7 @@ build_dockerizedcraft() {
     cd DockerizedCraft
 
     sudo MAVEN_OPTS='-Dmaven.repo.local=/mnt/data/.m2' mvn package
-    sudo mv target/DockerizedCraft*.jar ../plugins/DockerizedCraft.jar
+    sudo mv target/assembly/DockerizedCraft*.jar ../plugins/DockerizedCraft.jar
 }
 
 build_image()  {
