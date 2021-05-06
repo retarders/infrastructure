@@ -62,25 +62,5 @@ build_dockerizedcraft
 # build docker images
 build_image lobby
 
-# make docker compose file
-cat << EOF > docker-compose.yml
-version: '3'
-services:
-    bungeecord:
-        image: itzg/bungeecord
-        environment:
-            - UID=1000
-        ports:
-            - 25565:25577
-        volumes:
-            - /mnt/data/plugins/DockerizedCraft.jar:/server/plugins/DockerizedCraft.jar
-            - //var/run/docker.sock:/var/run/docker.sock
-        networks:
-            - local
-
-networks:
-    local:
-EOF
-
 # up
-sudo docker-compose -f ./docker-compose.yml up
+sudo docker-compose -f ~/infrastructure/setup/craft/docker-compose.yml up
