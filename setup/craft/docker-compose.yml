@@ -12,6 +12,15 @@ services:
         networks:
             - local
 
+    lobby-01:
+        image: lobby
+        environment:
+            - SERVER_NAME=lobby-01
+            - SERVER_GROUP=lobby
+            - SERVER_CATEGORY=lobby
+        networks:
+            - local
+
 networks:
     local:
 
