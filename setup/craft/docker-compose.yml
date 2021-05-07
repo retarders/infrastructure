@@ -2,8 +2,6 @@ version: '3'
 services:
     travertine:
         build: images/travertine
-        environment:
-            - UID=1000
         ports:
             - 25565:25577
         volumes:
