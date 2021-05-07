@@ -76,4 +76,4 @@ join-commands:
 # Setting force hosts. Use {dot} placeholder for dots to not break yaml syntax
 # Type: Section<String, String>
 forced-hosts:
-    # "pgm{dot}retarders{top}": "mixed"
+    "pgm{dot}retarders{top}": "mixed"
