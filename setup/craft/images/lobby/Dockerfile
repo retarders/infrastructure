@@ -9,3 +9,5 @@ RUN mkdir plugins
 RUN wget https://github.com/retarders/dalobby/releases/download/da/dalobby-da.jar -O plugins/DaLobby.jar
 
 CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false", "--pvp", "false", "--allow-nether", "false", "--difficulty", "0"]
+
+EXPOSE 25565
