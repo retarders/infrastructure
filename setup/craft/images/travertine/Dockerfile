@@ -12,7 +12,7 @@ RUN wget https://github.com/retarders/damessage/releases/download/1.0/damessage-
 # add configs
 RUN mkdir plugins/DockerizedCraft
 ADD configs/DockerizedCraft/connection-balancer.yml plugins/DockerizedCraft/connection-balancer.yml
-ADD configs/DockerizedCraft/connection-inspector.yml plugins/DockerizedCraft/connection-inspector.yml
+ADD configs/DockerizedCraft/container-inspector.yml plugins/DockerizedCraft/connection-inspector.yml
 
 CMD ["java", "-jar", "./travertine-1.16-183.jar"]
 
