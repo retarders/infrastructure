@@ -1,14 +1,13 @@
 version: '3'
 services:
-    bungeecord:
-        image: itzg/bungeecord
+    travertine:
+        image: travertine
         environment:
             - UID=1000
         ports:
             - 25565:25577
         volumes:
             - /mnt/data/plugins/DockerizedCraft.jar:/server/plugins/DockerizedCraft.jar
-            - ~/infrastructure/setup/craft/configs/DockerizedCraft:/server/plugins/DockerizedCraft
             - //var/run/docker.sock:/var/run/docker.sock
         networks:
             - local
