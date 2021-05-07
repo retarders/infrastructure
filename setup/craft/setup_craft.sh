@@ -31,7 +31,7 @@ install_java() {
 build_dockerizedcraft() {
     cd /mnt/data
 
-    sudo git clone https://github.com/bolt-rip/DockerizedCraft DockerizedCraft
+    sudo git clone https://github.com/retarders/DockerizedCraft DockerizedCraft
     cd DockerizedCraft
 
     sudo MAVEN_OPTS='-Dmaven.repo.local=/mnt/data/.m2' mvn package
