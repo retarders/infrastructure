@@ -1,7 +1,7 @@
 version: '3'
 services:
     travertine:
-        image: travertine
+        build: images/travertine
         environment:
             - UID=1000
         ports:
@@ -20,7 +20,7 @@ services:
             - local
 
     lobby-01:
-        image: lobby
+        build: images/lobby
         environment:
             - SERVER_NAME=lobby-01
             - SERVER_GROUP=lobby
