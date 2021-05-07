@@ -14,3 +14,5 @@ RUN mkdir plugins/DockerizedCraft
 ADD configs/DockerizedCraft/connection-balancer.yml plugins/DockerizedCraft/connection-balancer.yml
 
 CMD ["java", "-jar", "./travertine-1.16-183.jar"]
+
+EXPOSE 25577
