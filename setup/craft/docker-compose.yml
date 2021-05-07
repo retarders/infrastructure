@@ -3,7 +3,7 @@ services:
     travertine:
         build: images/travertine
         ports:
-            - 25565:25577
+            - 25577:25565
         volumes:
             - /mnt/data/plugins/DockerizedCraft.jar:/server/plugins/DockerizedCraft.jar
             - //var/run/docker.sock:/var/run/docker.sock
