@@ -38,11 +38,6 @@ build_dockerizedcraft() {
     sudo mv target/assembly/DockerizedCraft*.jar ../plugins/DockerizedCraft.jar
 }
 
-build_image()  {
-    cd ~/infrastructure/setup/craft/images/$1
-    docker build . -t $1
-}
-
 # install some basic dependencies
 sudo apt update -y
 sudo apt install git curl wget gnupg -y
@@ -58,9 +53,6 @@ install_java
 
 # build dockerizedcraft
 build_dockerizedcraft
-
-# build docker images
-build_image lobby
 
 # up
 sudo docker-compose -f ~/infrastructure/setup/craft/docker-compose.yml up
