@@ -8,6 +8,9 @@ RUN wget https://github.com/PGMDev/PGM/releases/download/v0.11/SportPaper.jar
 RUN mkdir plugins
 RUN wget https://github.com/retarders/dalobby/releases/download/1.1/dalobby-da.jar -O plugins/DaLobby.jar
 
-CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false", "--pvp", "false", "--allow-nether", "false", "--difficulty", "0"]
+# copy configs
+ADD server.properties /server/server.properties
+
+CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false"]
 
 EXPOSE 25565
