@@ -6,6 +6,7 @@ services:
             - 25565:25577
         links:
             - lobby
+            - mixed-01
 
     lobby:
         build: images/lobby
@@ -15,3 +16,6 @@ services:
             - SERVER_CATEGORY=lobby
         volumes:
             - /mnt/data/maps/lobby:/server/world
+
+    mixed-01:
+        build: images/mixed

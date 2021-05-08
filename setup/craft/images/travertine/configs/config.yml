@@ -46,3 +46,7 @@ servers:
     motd: p
     address: lobby:25565
     restricted: false
+  mixed-01:
+    motd: p
+    address: mixed-01
+    restricted: false
