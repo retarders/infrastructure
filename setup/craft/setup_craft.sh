@@ -28,16 +28,6 @@ install_java() {
     sudo apt install maven -y
 }
 
-build_dockerizedcraft() {
-    cd /mnt/data
-
-    sudo git clone https://github.com/retarders/DockerizedCraft DockerizedCraft
-    cd DockerizedCraft
-
-    sudo MAVEN_OPTS='-Dmaven.repo.local=/mnt/data/.m2' mvn package
-    sudo mv target/DockerizedCraft-0.2.8-shaded.jar ../plugins/DockerizedCraft.jar
-}
-
 # install some basic dependencies
 sudo apt update -y
 sudo apt install git curl wget gnupg -y
@@ -50,9 +40,6 @@ sudo mkdir -p /mnt/data/plugins
 # install docker and java
 install_docker
 install_java
-
-# build dockerizedcraft
-build_dockerizedcraft
 
 # up
 sudo docker-compose -f ~/infrastructure/setup/craft/docker-compose.yml up
