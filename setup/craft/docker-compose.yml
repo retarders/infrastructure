@@ -7,13 +7,6 @@ services:
         networks:
             - local
 
-    redis:
-        image: bitnami/redis:latest
-        environment:
-            - ALLOW_EMPTY_PASSWORD=yes
-        networks:
-            - local
-
     lobby:
         build: images/lobby
         environment:
