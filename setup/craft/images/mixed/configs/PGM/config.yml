@@ -1,0 +1,163 @@
+#
+# PGM
+# The original PvP Game Manager for Minecraft.
+
+map:
+  folders:
+    # List of folders to load maps.
+    #
+    #  server/
+    #    bukkit.jar
+    #    plugins/
+    #      PGM/
+    #        config.yml
+    #    maps/
+    #
+    # See the example above, folders are relative to the server folder.
+    - "occ-maps"
+
+  repositories:
+    # List of git repositories to load maps.
+    #
+    #  - uri: "https://<user>:<oauth-token>@github.com/myUser/myPrivateRepo"
+    #    path: "maps"
+    #    branch: "master"
+    #    folders:
+    #    - "tournament"
+    #
+    # To enable the default maps, uncomment the repository below.
+    - uri: "https://github.com/OvercastCommunity/CommunityMaps"
+     path: "occ-maps"
+
+  # A path to a map pools file, or empty to disable map pools.
+  pools: "map-pools.yml"
+
+# Sets the duration of various countdowns.
+#
+#  "30s"  = 30 seconds
+#  "1m5s" = 1 minute and 5 seconds
+#  "0s"   = immediately
+#  -1     = disabled
+#
+# See the examples above for how to format durations.
+countdown:
+  start: "15s"    # After a match cycles or /start
+  cycle: "30s"    # After a match ends or /cycle
+  huddle: -1      # Before a match starts (only recommended for "ranked" matches)
+  restart: "30s"  # After a restart countdown is queued or /qr
+
+# Sets thresholds for when to restart the server.
+#
+# Set to -1 to disable either of these options.
+restart:
+  uptime: "-1"    # Queues a restart after this amount of time has elapsed.
+  match-limit: -1 # Queues a restart after this amount of matches.
+
+# Changes behaviour when players try to /join a match.
+join:
+  min-players: 1      # Minimum number of players before a match can start.
+  anytime: true       # Can players join after a match has started?
+  balance: true       # Can players be moved to make teams more balanced?
+  queue: false        # Should players be put in a queue before joining the match?
+  limit: true         # Should there be a limit on the number of players on each team?
+  priority-kick: true # Can free players be kicked to observers to make room for a premium player?
+
+# Changes various gameplay mechanics.
+gameplay:
+  refill-wool: true # Should wool in wool rooms be automatically refilled?
+  grief-score: -10 # Score under which players should be kept out of the match
+
+# Toggles various user interfaces.
+ui:
+  sidebar: true    # Enable the side bar?
+  tablist: true    # Enable the tab list?
+  ping: false      # Should tab list show real ping?
+  proximity: false # Should the proximity of objectives be visible?
+  fireworks: true  # Spawn fireworks after objectives are completed?
+  participants-see-observers: true # Can participants see observers in the tab list?
+  flag-beams: false # Should everyone see floating wool flag beams?
+
+# Changes how stats are shown.
+stats:
+  verbose: true   # Enable more detailed stats?
+  show-after: 6s  # How long to wait after the match ends to show stats?
+  show-best: true # Should show best players stats?
+  show-own: true  # Should show each players own stats?
+
+# Overrides the header and footer of the side bar.
+sidebar:
+  header: "" # A header, disabled if empty.
+  footer: "&d&lpgm.retarders.top" # A footer, disabled if empty.
+  
+# Customize text displayed in the footer of the tablist.
+# Color codes can be used ex. "&aHello World"  
+# To disable, set to an empty string.
+tablist:
+  left: ""
+  right: ""
+
+# Overrides the server MoTD.
+#
+#  {0} = The existing server MoTD.
+#  {1} = Name of the map currently playing.
+#  {2} = A color code representing the current match state:
+#         Idle = Grey (&7)
+#         Starting = Yellow (&e)
+#         Running = Green (&a)
+#         Finished = Red (&c)
+#
+# To disable, set to an empty string.
+motd: "{2}» &b{1} {2}«"
+
+# Each group is assigned the permission "pgm.group.<name>".
+groups:
+  senor:
+    prefix: "&6❖"
+    suffix: ""
+    display-name: "&6señor"
+    description: "&7señor of the server"
+    click-link: "https://retarders.top/"
+    
+  administrator:
+    prefix: "&c❖"
+    suffix: ""
+    displayname: "&cAdministrator"
+    description: "&7Administrator of the server"
+    click-link: "https://retarders.top"
+
+  default:
+    permissions:
+      - "-minecraft.command.kill"
+      - "-minecraft.command.me"
+      - "-minecraft.command.tell"
+      - "-worldedit.navigation.ceiling"
+      - "-worldedit.navigation.up"
+      - "-worldedit.calc"
+      - "-commandbook.pong"
+      - "-commandbook.speed.flight"
+      - "-commandbook.speed.walk"
+    observer-permissions:
+      - "+worldedit.navigation.*"
+      - "+commandbook.teleport"
+    participant-permissions:
+      - "-worldedit.navigation.thru.tool"
+      - "-worldedit.navigation.jumpto.tool"
+      - "-commandbook.teleport"
+
+  mapmaker:
+    prefix: "&9*"
+    permissions:
+      - "+pgm.premium"
+
+community:
+  enabled: true
+  server-name: "Retarders Network"
+  rules-link: "https://retarders.top/rules"
+  appeal-msg: "https://retarders.top/discord"
+
+# Only SQLite and MySQL-compatible databases officially supported.
+#  "sqlite:/path/to/file.db"
+#  "mysql://localhost/mydatabase?user=myuser&password=mypassword"
+database-uri: ""
+
+experiments: {}
