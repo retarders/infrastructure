@@ -14,7 +14,7 @@ services:
         networks:
             - local
 
-    lobby-01:
+    lobby:
         build: images/lobby
         environment:
             - SERVER_NAME=lobby-01
