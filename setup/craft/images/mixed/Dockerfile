@@ -8,7 +8,6 @@ RUN wget https://github.com/PGMDev/PGM/releases/download/v0.11/SportPaper.jar
 
 # download plugins
 RUN wget https://github.com/PGMDev/PGM/releases/download/v0.11/PGM.jar -O plugins/pgm.jar
-RUN wget /mnt/data/WorldEdit/worldedit-bukkit/build/libs/worldedit-bukkit-7.3.0-SNAPSHOT-dist.jar -O plugins/worldedit.jar
 
 # copy configs
 # RUN mkdir /server/plugins/PGM

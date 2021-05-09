@@ -16,6 +16,9 @@ services:
             - SERVER_CATEGORY=lobby
         volumes:
             - /mnt/data/maps/lobby:/server/world
+            - /mnt/data/WorldEdit/worldedit-bukkit/build/libs/worldedit-bukkit-7.3.0-SNAPSHOT-dist.jar:/server/plugins/worldedit.jar
 
     mixed-01:
         build: images/mixed
+        volumes:
+            - /mnt/data/WorldEdit/worldedit-bukkit/build/libs/worldedit-bukkit-7.3.0-SNAPSHOT-dist.jar:/server/plugins/worldedit.jar
