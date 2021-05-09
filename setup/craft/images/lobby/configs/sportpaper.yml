@@ -1,0 +1,278 @@
+# This is the main configuration file for SportPaper.
+# Command aliases also go in this file, just put what you would normally put in commands.yml under a commands: tag
+bukkit:
+  spawn-limits:
+    monsters: 70
+    animals: 15
+    water-animals: 5
+    ambient: 15
+  chunk-gc:
+    period-in-ticks: 600
+    load-threshold: 0
+  ticks-per:
+    animal-spawns: 400
+    monster-spawns: 1
+    autosave: 6000
+  database:
+    username: bukkit
+    isolation: SERIALIZABLE
+    driver: org.sqlite.JDBC
+    password: walrus
+    url: jdbc:sqlite:{DIR}{NAME}.db
+  settings:
+    allow-end: false
+    warn-on-overload: true
+    update-folder: update
+    plugin-profilling: false
+    connection-throttle: 0
+    query-plugins: true
+    deprecated-verbose: default
+    shutdown-message: Server closed
+    use-exact-login-location: false
+    world-container: .
+spigot:
+  settings:
+    save-user-cache-on-stop-only: false
+    bungeecord: false
+    late-bind: false
+    sample-count: 12
+    player-shuffle: 0
+    filter-creative-items: true
+    user-cache-size: 1000
+    int-cache-limit: 1024
+    moved-wrongly-threshold: 0.0625
+    moved-too-quickly-threshold: 100.0
+    timeout-time: 60
+    restart-on-crash: true
+    restart-script: ./start.sh
+    fetch-skulls: true
+    netty-threads: 4
+    attribute:
+      maxHealth:
+        max: 2048.0
+      movementSpeed:
+        max: 2048.0
+      attackDamage:
+        max: 2048.0
+    debug: false
+  timings:
+    enabled: true
+    verbose: true
+    server-name-privacy: false
+    hidden-config-entries:
+    - database
+    - settings.bungeecord-addresses
+    history-interval: 300
+    history-length: 3600
+  commands:
+    tab-complete: 0
+    log: true
+    spam-exclusions:
+    - /skill
+    silent-commandblock-console: false
+    replace-commands:
+    - setblock
+    - summon
+    - testforblock
+    - tellraw
+  messages:
+    whitelist: You are not whitelisted on this server!
+    unknown-command: Unknown command. Type "/help" for help.
+    internal-error: '&cAn internal error occurred while attempting to perform this
+      command'
+    server-full: The server is full!
+    outdated-client: Outdated client! Please use {0}
+    outdated-server: Outdated server! I'm still on {0}
+    restart: Server is restarting
+  stats:
+    disable-saving: false
+    forced-stats: {}
+  world-settings:
+    verbose: true
+    mob-spawn-range: 4
+    anti-xray:
+      enabled: true
+      engine-mode: 1
+      hide-blocks:
+      - 14
+      - 15
+      - 16
+      - 21
+      - 48
+      - 49
+      - 54
+      - 56
+      - 73
+      - 74
+      - 82
+      - 129
+      - 130
+      replace-blocks:
+      - 1
+      - 5
+    nerf-spawner-mobs: false
+    growth:
+      cactus-modifier: 100
+      cane-modifier: 100
+      melon-modifier: 100
+      mushroom-modifier: 100
+      pumpkin-modifier: 100
+      sapling-modifier: 100
+      wheat-modifier: 100
+      netherwart-modifier: 100
+    entity-activation-range:
+      animals: 32
+      monsters: 32
+      misc: 16
+    entity-tracking-range:
+      players: 48
+      animals: 48
+      monsters: 48
+      misc: 32
+      other: 64
+    ticks-per:
+      hopper-transfer: 8
+      hopper-check: 8
+    hopper-amount: 1
+    random-light-updates: false
+    save-structure-info: true
+    max-bulk-chunks: 10
+    max-entity-collisions: 8
+    dragon-death-sound-radius: 0
+    seed-village: 10387312
+    seed-feature: 14357617
+    hunger:
+      walk-exhaustion: 0.2
+      sprint-exhaustion: 0.8
+      combat-exhaustion: 0.3
+      regen-exhaustion: 3.0
+    max-tnt-per-tick: 100
+    max-tick-time:
+      tile: 50
+      entity: 50
+    item-despawn-rate: 6000
+    merge-radius:
+      item: 2.5
+      exp: 3.0
+    chunks-per-tick: 650
+    clear-tick-list: false
+    arrow-despawn-rate: 1200
+    enable-zombie-pigmen-portal-spawns: true
+    view-distance: 10
+    wither-spawn-sound-radius: 0
+    hanging-tick-frequency: 100
+    zombie-aggressive-towards-villager: true
+paper:
+  settings:
+    player-auto-save-rate: -1
+    max-player-auto-save-per-tick: -1
+    include-randomness-in-arrow-trajectory: false
+    include-randomness-in-arrow-damage: true
+    spam-limiter:
+      tab-spam-increment: 10
+      tab-spam-limit: 500
+    empty-server-suspend: PT1M
+    baby-zombie-movement-speed: 0.5
+    limit-player-interactions: true
+    region-file-cache-size: 256
+    save-empty-scoreboard-teams: false
+    save-player-data: true
+    tick-empty-worlds: true
+    require-all-plugins: false
+  data-value-allowed-items: []
+  fire-physics-event-for-redstone: false
+  effect-modifiers:
+    strength: 1.3
+    weakness: -0.5
+  stackable-buckets:
+    lava: false
+    water: false
+    milk: false
+  warnWhenSettingExcessiveVelocity: true
+  knockback:
+    friction: 2.0
+    horizontal: 0.4
+    vertical: 0.4
+    vertical-limit: 0.4
+    extra-horizontal: 0.5
+    extra-vertical: 0.1
+  world-settings:
+    verbose: true
+    generator-settings:
+      canyon: true
+      caves: true
+      dungeon: true
+      fortress: true
+      mineshaft: true
+      monument: true
+      stronghold: true
+      temple: true
+      village: true
+      flat-bedrock: false
+    allow-block-location-tab-completion: true
+    falling-block-height-nerf: 0
+    remove-unloaded:
+      enderpearls: true
+      tnt-entities: true
+      falling-blocks: true
+    game-mechanics:
+      boats-drop-boats: false
+      disable-player-crits: false
+      disable-chest-cat-detection: false
+      disable-end-credits: false
+    nether-ceiling-void-damage: false
+    load-chunks:
+      enderpearls: false
+      tnt-entities: false
+      falling-blocks: false
+    fast-drain:
+      lava: false
+      water: false
+    lava-flow-speed:
+      normal: 30
+      nether: 10
+    player-blocking-damage-multiplier: 0.5
+    optimize-explosions: false
+    mob-spawner-tick-rate: 1
+    cache-chunk-maps: false
+    tnt-explosion-volume: 4.0
+    disable-teleportation-suffocation-check: false
+    use-chunk-inhabited-timer: true
+    max-auto-save-chunks-per-tick: 24
+    remove-corrupt-tile-entities: false
+    squid-spawn-height:
+      minimum: 45.0
+      maximum: 63.0
+    max-growth-height:
+      cactus: 3
+      reeds: 3
+    fishing-time-range:
+      MinimumTicks: 100
+      MaximumTicks: 900
+    player-exhaustion:
+      block-break: 0.02500000037252903
+      swimming: 0.014999999664723873
+    despawn-ranges:
+      soft: 32
+      hard: 128
+    remove-invalid-mob-spawner-tile-entities: true
+    disable-explosion-knockback: false
+    auto-save-interval: -1
+    container-update-tick-rate: 1
+    keep-spawn-loaded: true
+    falling-blocks-collide-with-signs: false
+    armor-stands-do-collision-entity-lookups: true
+    disable-mood-sounds: false
+    use-async-lighting: false
+    portal-search-radius: 128
+    disable-thunder: false
+    disable-ice-and-snow: false
+    tick-next-tick-list-cap: 10000
+    tick-next-tick-list-cap-ignores-redstone: false
+    grass-spread-tick-rate: 1
+    water-over-lava-flow-speed: 5
+    fix-cannons: false
+    tnt-entity-height-nerf: 0
+    use-hopper-check: false
+    all-chunks-are-slime-chunks: false
+    allow-undead-horse-leashing: false

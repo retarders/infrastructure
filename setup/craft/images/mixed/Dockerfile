@@ -15,6 +15,7 @@ ADD configs/PGM/config.yml /server/plugins/PGM/config.yml
 ADD configs/PGM/map-pools.yml /server/plugins/PGM/map-pools.yml
 
 ADD configs/ops.json /server/ops.json
+ADD configs/sportpaper.yml /server/sportpaper.yml
 
 CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false"]
 
