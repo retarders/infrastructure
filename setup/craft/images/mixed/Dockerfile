@@ -13,6 +13,8 @@ RUN mkdir /server/plugins/PGM
 ADD configs/PGM/config.yml /server/plugins/PGM/config.yml
 ADD configs/PGM/map-pools.yml /server/plugins/PGM/map-pools.yml
 
+ADD configs/ops.json /server/ops.json
+
 CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false"]
 
 EXPOSE 25565
