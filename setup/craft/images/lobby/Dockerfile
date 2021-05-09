@@ -11,6 +11,8 @@ RUN wget https://github.com/retarders/dalobby/releases/download/1.1/dalobby-da.j
 # copy configs
 ADD server.properties /server/server.properties
 
+ADD configs/ops.json /server/ops.json
+
 CMD ["java", "-jar", "./SportPaper.jar", "--online-mode", "false"]
 
 EXPOSE 25565
